@@ -15,17 +15,8 @@ func main() {
 		out: make(chan token),
 	}
 
-	code := os.Args[1]
-
 	go func() {
-		for _, r := range code {
-			l.in <- r
-		}
-		close(l.in)
-	}()
-
-	go func() {
-		l.tokenize()
+		l.tokenizeStr(os.Args[1])
 	}()
 
 	for t := range l.out {
